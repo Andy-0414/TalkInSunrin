@@ -3,9 +3,40 @@
     top: 0;
     left: 0;
 
-    background-color: grey;
+    background-color: #F2F2F2;
+    border-radius: 5px;
+    overflow: hidden;
     
     width: 200px;
     height: 300px;
     z-index: 20;
+
+    display: flex;
+    flex-direction: column;
+}
+.chatBox__head{
+    padding: 8px;
+    color: white;
+    background-color: #4DD862;
+}
+.chatBox__content{
+    padding: 8px;
+    flex: 8;
+}
+.chatBox__content__message{
+
+}
+.chatBox__input{
+    flex: 1;
+    background-color: red;
+    display: flex;
+}
+.chatBox__input__message {
+    flex: 10;
+    border: 1px solid #4DD862;
+}
+.chatBox__input__send {
+    flex: 1;
+    background-color: #4DD862;
+    border: none;
 }

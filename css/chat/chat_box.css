@@ -1,0 +1,11 @@
+.chatBox{
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    background-color: grey;
+    
+    width: 200px;
+    height: 300px;
+    z-index: 20;
+}

@@ -1,0 +1,32 @@
+@font-face{
+    font-family: 'NanumSquareR';
+    src: url('../assets/BMJUA_ttf.ttf') format('truetype'),
+    url('../assets/BMJUA_ttf.ttf') format('embedded-opentype');
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style: none;
+
+    letter-spacing: 1px;
+}
+body{
+    background-color: #F2F2F2;
+}
+.animation__delay-1{
+    animation-delay: 0.1s !important;
+}
+.animation__delay-2{
+    animation-delay: 0.2s !important;
+}
+.animation__delay-3{
+    animation-delay: 0.3s !important;
+}
+.animation__delay-4{
+    animation-delay: 0.4s !important;
+}
+.animation__delay-5{
+    animation-delay: 0.5s !important;
+}

@@ -15,14 +15,14 @@
     flex-direction: column;
 
     z-index: 20;
+
 }
 .chatBox__resize{
     position: absolute;
-    top: 95%;
-    left: 95%;
+    top: calc(100% - 10px);
+    left: calc(100% - 10px);
     width: 20px;
     height: 20px;
-    background-color: #FF000066;
     
     z-index: 10;
 }
@@ -33,7 +33,7 @@
     user-select: none;
     padding: 8px;
     color: white;
-    border-radius: 5px 5px 0px 0px;
+    border-radius: 3px 3px 0px 0px;
     background-color: #1C79F2;
 }
 .chatBox__content{

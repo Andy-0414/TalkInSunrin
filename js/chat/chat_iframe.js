@@ -11,6 +11,7 @@ document.addEventListener("mousedown", (e) => {
     }
 })
 document.addEventListener("mousemove", (e) => {
+    console.log("H")
     if (target)
         target.controller.setPos(e.clientX - currentX,e.clientY-currentY)
 })

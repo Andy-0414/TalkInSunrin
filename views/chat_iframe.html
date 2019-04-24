@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,21 +10,27 @@
     <link rel="stylesheet" href="../css//chat/chat_iframe.css">
     <link rel="stylesheet" href="../css//chat/chat_box.css">
 </head>
+
 <body>
-    <iframe id="fake" src="https://namu.wiki/w/%EB%82%98%EB%AC%B4%EC%9C%84%ED%82%A4:%EB%8C%80%EB%AC%B8"frameborder="0"></iframe>
-    <div class="chatBox">
-        <div class="chatBox__head">이름</div>
-        <div class="chatBox__content">
-            <div class="chatBox__content__message">
-                Hello World
+    <iframe id="fake" src="https://namu.wiki/w/%EB%82%98%EB%AC%B4%EC%9C%84%ED%82%A4:%EB%8C%80%EB%AC%B8"
+        frameborder="0"></iframe>
+    <div class="chatList">
+        <div class="chatBox">
+            <div class="chatBox__head">이름</div>
+            <div class="chatBox__content">
+                <div class="chatBox__content__message">
+                    Hello World
+                </div>
             </div>
-        </div>
-        <div class="chatBox__input">
-            <input type="text" class="chatBox__input__message">
-            <button class="chatBox__input__send">▶</button>
+            <div class="chatBox__input">
+                <input type="text" class="chatBox__input__message">
+                <button class="chatBox__input__send">▶</button>
+            </div>
+            <div class="chatBox__resize"></div>
         </div>
     </div>
     <script src="../js/chat/chat_box.js"></script>
     <script src="../js/chat/chat_iframe.js"></script>
 </body>
+
 </html>

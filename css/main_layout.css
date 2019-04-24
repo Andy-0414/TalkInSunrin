@@ -1,7 +1,7 @@
 @font-face{
     font-family: 'NanumSquareR';
-    src: url('../assets/BMJUA_ttf.ttf') format('truetype'),
-    url('../assets/BMJUA_ttf.ttf') format('embedded-opentype');
+    src: url('../assets/NanumSquareR.ttf') format('truetype'),
+    url('../assets/NanumSquareR.ttf') format('embedded-opentype');
 }
 
 *{

@@ -12,32 +12,37 @@ var currentSizeX = 0;
 var currentSizeY = 0;
 var loop = null;
 document.addEventListener("mousedown", (e) => {
-    isClick = true
+    isClick = 1
     if (e.target.classList.contains("chatBox__resize")) {
         resizeTarget = e.target.parentElement
         currentSizeX = resizeTarget.controller.getSizeX()
         currentSizeY = resizeTarget.controller.getSizeY()
     } else if (e.target.parentElement.classList.contains("chatBox")) {
+        isClick = 2
         target = e.target.parentElement
         currentX = e.clientX - target.controller.getX()
         currentY = e.clientY - target.controller.getY()
         if (loop) clearInterval(loop)
         loop = setInterval(() => {
-            if (Math.abs(currentVelocityX) >= 0.0001 || Math.abs(currentVelocityY) >= 0.0001) {
+            if ((Math.abs(currentVelocityX) >= 0.0001 || Math.abs(currentVelocityY) >= 0.0001 || isClick == 2) && !resizeTarget) {
                 var changeX = (target.controller.getX() + currentVelocityX)
                 var changeY = (target.controller.getY() + currentVelocityY)
 
-                if (changeX + target.controller.getSizeX() < innerWidth) {
-                    currentVelocityX /= 1.1
-                } else {
-                    currentVelocityX -= ((innerWidth - target.controller.getSizeX()) - currentSizeX) / 1000
+                if (changeX + target.controller.getSizeX() > innerWidth) {
+                    currentVelocityX -= 0.5 - currentVelocityX / 1000
+                }
+                else if(changeX < 0){
+                    currentVelocityX -= -0.5- currentVelocityY / 1000
                 }
 
-                if (changeY + target.controller.getSizeY() < innerHeight) {
-                    currentVelocityY /= 1.1
-                } else {
-                    currentVelocityY -= ((innerHeight - target.controller.getSizeY()) - currentSizeY) / 1000
+                if (changeY + target.controller.getSizeY() > innerHeight) {
+                    currentVelocityY -= 0.5 - currentVelocityX / 10000
                 }
+                else if (changeY < 0) {
+                    currentVelocityY -= -0.5 - currentVelocityY / 1000
+                }
+                currentVelocityX /= 1.1
+                currentVelocityY /= 1.1
 
                 target.controller.setPos(changeX, changeY)
             } else {

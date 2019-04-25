@@ -29,17 +29,17 @@ document.addEventListener("mousedown", (e) => {
                 var changeY = (target.controller.getY() + currentVelocityY)
 
                 if (changeX + target.controller.getSizeX() > innerWidth) {
-                    currentVelocityX -= 1 - currentVelocityX / 1000
+                    currentVelocityX += (((innerWidth - target.controller.getSizeX()) - target.controller.getX()) - currentVelocityX) / 60
                 }
                 else if(changeX < 0){
-                    currentVelocityX -= -1- currentVelocityY / 1000
+                    currentVelocityX += ((-target.controller.getX()) - currentVelocityX) / 60
                 }
 
                 if (changeY + target.controller.getSizeY() > innerHeight) {
-                    currentVelocityY -= 1 - currentVelocityX / 10000
+                    currentVelocityY += (((innerHeight - target.controller.getSizeY()) - target.controller.getY()) - currentVelocityY) / 60
                 }
                 else if (changeY < 0) {
-                    currentVelocityY -= -1 - currentVelocityY / 1000
+                    currentVelocityY += ((-target.controller.getY()) - currentVelocityY) / 60                    
                 }
                 currentVelocityX /= 1.2
                 currentVelocityY /= 1.2

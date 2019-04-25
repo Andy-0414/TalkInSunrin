@@ -59,6 +59,7 @@ document.addEventListener("mousemove", (e) => {
         currentVelocityY = (e.clientY - (target.controller.getY() + currentY)) / 5
     }
     if (resizeTarget) {
+        if(loop) clearInterval(loop)
         resizeTarget.controller.setSize(
             currentSizeX + (e.clientX - currentSizeX - resizeTarget.controller.getX()),
             currentSizeY + (e.clientY - currentSizeY - resizeTarget.controller.getY()))

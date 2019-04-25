@@ -29,20 +29,20 @@ document.addEventListener("mousedown", (e) => {
                 var changeY = (target.controller.getY() + currentVelocityY)
 
                 if (changeX + target.controller.getSizeX() > innerWidth) {
-                    currentVelocityX -= 0.5 - currentVelocityX / 1000
+                    currentVelocityX -= 1 - currentVelocityX / 1000
                 }
                 else if(changeX < 0){
-                    currentVelocityX -= -0.5- currentVelocityY / 1000
+                    currentVelocityX -= -1- currentVelocityY / 1000
                 }
 
                 if (changeY + target.controller.getSizeY() > innerHeight) {
-                    currentVelocityY -= 0.5 - currentVelocityX / 10000
+                    currentVelocityY -= 1 - currentVelocityX / 10000
                 }
                 else if (changeY < 0) {
-                    currentVelocityY -= -0.5 - currentVelocityY / 1000
+                    currentVelocityY -= -1 - currentVelocityY / 1000
                 }
-                currentVelocityX /= 1.1
-                currentVelocityY /= 1.1
+                currentVelocityX /= 1.2
+                currentVelocityY /= 1.2
 
                 target.controller.setPos(changeX, changeY)
             } else {

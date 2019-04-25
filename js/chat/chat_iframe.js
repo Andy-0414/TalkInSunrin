@@ -41,8 +41,8 @@ document.addEventListener("mousedown", (e) => {
                 else if (changeY < 0) {
                     currentVelocityY += ((-target.controller.getY()) - currentVelocityY) / 60                    
                 }
-                currentVelocityX /= 1.2
-                currentVelocityY /= 1.2
+                currentVelocityX /= 1.15
+                currentVelocityY /= 1.15
 
                 target.controller.setPos(changeX, changeY)
             } else {

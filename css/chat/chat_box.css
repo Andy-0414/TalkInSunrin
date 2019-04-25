@@ -16,6 +16,7 @@
 
     z-index: 20;
 
+    user-select: none;
 }
 .chatBox__resize{
     position: absolute;
@@ -30,7 +31,6 @@
     cursor: nwse-resize;
 }
 .chatBox__head{
-    user-select: none;
     padding: 8px;
     color: white;
     border-radius: 3px 3px 0px 0px;

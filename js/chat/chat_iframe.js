@@ -1,5 +1,7 @@
-var chat = new ChatBox();
-chat.setProp(document.getElementsByClassName('chatBox')[0])
+var chat1 = new ChatBox();
+chat1.setProp(document.getElementsByClassName('chatBox')[0])
+var chat2 = new ChatBox();
+chat2.setProp(document.getElementsByClassName('chatBox')[1])
 
 var target = null;
 var resizeTarget = null;

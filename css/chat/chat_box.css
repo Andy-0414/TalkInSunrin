@@ -3,7 +3,7 @@
     top: 0;
     left: 0;
 
-    background-color: #F2F2F2;
+    background-color: #1C79F2;
     border-radius: 5px;
     
     width: 200px;
@@ -33,10 +33,9 @@
 .chatBox__head{
     padding: 8px;
     color: white;
-    border-radius: 3px 3px 0px 0px;
-    background-color: #1C79F2;
 }
 .chatBox__content{
+    background-color: #f2f2f2;
     padding: 8px;
     flex: 8;
 }
@@ -44,16 +43,24 @@
 
 }
 .chatBox__input{
-    flex: 1;
-    background-color: red;
+    height: 40px;
     display: flex;
 }
 .chatBox__input__message {
     flex: 10;
+    height: 100%;
+
+    outline: none;
+    border: none;
+    resize: none;
+
+    padding: 5px;
+
     border-top: 2px solid #1C79F2;
 }
 .chatBox__input__send {
     flex: 1;
+    outline: none;
     background-color: #1C79F2;
     border: none;
     color: white;

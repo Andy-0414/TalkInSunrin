@@ -1,7 +1,9 @@
+const chatList = document.getElementsByClassName('chatBox')
+
 var chat1 = new ChatBox();
-chat1.setProp(document.getElementsByClassName('chatBox')[0])
+chat1.setProp(chatList[0])
 var chat2 = new ChatBox();
-chat2.setProp(document.getElementsByClassName('chatBox')[1])
+chat2.setProp(chatList[1])
 
 var target = null;
 var resizeTarget = null;
@@ -21,7 +23,13 @@ document.addEventListener("mousedown", (e) => {
         currentSizeY = resizeTarget.controller.getSizeY()
     } else if (e.target.parentElement.classList.contains("chatBox")) {
         isClick = 2
-        target = e.target.parentElement
+        target = e.target.parentElement;
+        
+        [...chatList].forEach(x=>{
+            x.style.zIndex = 0
+        })
+        target.style.zIndex = 10
+
         currentX = e.clientX - target.controller.getX()
         currentY = e.clientY - target.controller.getY()
         if (loop) clearInterval(loop)
@@ -32,16 +40,14 @@ document.addEventListener("mousedown", (e) => {
 
                 if (changeX + target.controller.getSizeX() > innerWidth) {
                     currentVelocityX += (((innerWidth - target.controller.getSizeX()) - target.controller.getX()) - currentVelocityX) / 60
-                }
-                else if(changeX < 0){
+                } else if (changeX < 0) {
                     currentVelocityX += ((-target.controller.getX()) - currentVelocityX) / 60
                 }
 
                 if (changeY + target.controller.getSizeY() > innerHeight) {
                     currentVelocityY += (((innerHeight - target.controller.getSizeY()) - target.controller.getY()) - currentVelocityY) / 60
-                }
-                else if (changeY < 0) {
-                    currentVelocityY += ((-target.controller.getY()) - currentVelocityY) / 60                    
+                } else if (changeY < 0) {
+                    currentVelocityY += ((-target.controller.getY()) - currentVelocityY) / 60
                 }
                 currentVelocityX /= 1.15
                 currentVelocityY /= 1.15
@@ -56,12 +62,11 @@ document.addEventListener("mousedown", (e) => {
 })
 document.addEventListener("mousemove", (e) => {
     if (target && isClick) {
-        // target.controller.setPos(e.clientX - currentX, e.clientY - currentY)
         currentVelocityX = (e.clientX - (target.controller.getX() + currentX)) / 5
         currentVelocityY = (e.clientY - (target.controller.getY() + currentY)) / 5
     }
     if (resizeTarget) {
-        if(loop) clearInterval(loop)
+        if (loop) clearInterval(loop)
         resizeTarget.controller.setSize(
             currentSizeX + (e.clientX - currentSizeX - resizeTarget.controller.getX()),
             currentSizeY + (e.clientY - currentSizeY - resizeTarget.controller.getY()))

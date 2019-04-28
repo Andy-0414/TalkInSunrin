@@ -32,6 +32,7 @@
 }
 .chatBox__head{
     padding: 8px;
+    font-size: 1.1em;
     color: white;
 }
 .chatBox__content{

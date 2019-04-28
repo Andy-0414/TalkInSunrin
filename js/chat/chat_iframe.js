@@ -23,9 +23,9 @@ document.addEventListener("mousedown", (e) => {
         currentSizeY = resizeTarget.controller.getSizeY()
     } else if (e.target.parentElement.classList.contains("chatBox")) {
         isClick = 2
-        target = e.target.parentElement;
+        target = e.target.parentElement
         
-        [...chatList].forEach(x=>{
+        ;[...chatList].forEach(x=>{
             x.style.zIndex = 0
         })
         target.style.zIndex = 10

@@ -63,12 +63,28 @@ body{
     justify-content: center;
 
     height: 100%;
-    width: 50%;
+    width: 80%;
+
+    user-select: none;
+
     z-index: 101;
 }
 .friendList__list__item{
+    text-align: center;
     font-size: 2em;
     color: white;
+    transition: 0.5s;
+}
+.friendList__list__item:hover{
+    font-size: 2.5em;
+}
+.friendList__list__item:hover+*{
+    font-size: 2.2em;
+    transition: 0.8s;
+}
+.friendList__list__item:active{
+    color: #FFFFFF66;
+    border-left: 10px solid white;
 }
 
 #fake{

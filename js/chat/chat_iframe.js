@@ -15,6 +15,7 @@ var currentVelocityY = 0;
 var currentSizeX = 0;
 var currentSizeY = 0;
 var loop = null;
+
 document.addEventListener("mousedown", (e) => {
     isClick = 1
     if (e.target.classList.contains("chatBox__resize")) {

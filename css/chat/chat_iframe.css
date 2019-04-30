@@ -48,6 +48,7 @@ body{
     background-color: #1C79F2;
 
     transition: 0.5s;
+    box-shadow: 2px 5px 5px 0px #66666666;
 }
 .friendList:hover{
     left: 0;

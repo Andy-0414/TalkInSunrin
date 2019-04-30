@@ -1,11 +1,11 @@
-.chatBox{
+.chatBox {
     position: fixed;
     top: 0;
     left: 0;
 
     background-color: #f2f2f2;
     border-radius: 5px;
-    
+
     width: 200px;
     height: 300px;
 
@@ -20,25 +20,29 @@
 
     box-shadow: 0px 5px 5px 0px #66666666;
 }
-.chatBox__resize{
+
+.chatBox__resize {
     position: absolute;
     top: calc(100% - 10px);
     left: calc(100% - 10px);
     width: 20px;
     height: 20px;
-    
+
     z-index: 10;
 }
-.chatBox__resize:hover{
+
+.chatBox__resize:hover {
     cursor: nwse-resize;
 }
-.chatBox__head{
+
+.chatBox__head {
     padding: 8px;
     font-size: 1.1em;
     border-bottom: 2px solid #1C79F2;
     color: #1C79F2;
 }
-.chatBox__head__close{
+
+.chatBox__head__close {
     cursor: pointer;
     position: absolute;
     display: inline-block;
@@ -49,22 +53,25 @@
     right: 8px;
     border-radius: 10px;
 }
-.chatBox__head__close::before{
+
+.chatBox__head__close::before {
     font-weight: bold;
     content: "Ｘ";
 }
-.chatBox__content{
+
+.chatBox__content {
     background-color: #f2f2f2;
     padding: 8px;
     flex: 8;
 }
-.chatBox__content__message{
 
-}
-.chatBox__input{
+.chatBox__content__message {}
+
+.chatBox__input {
     height: 40px;
     display: flex;
 }
+
 .chatBox__input__message {
     flex: 10;
     height: 100%;
@@ -77,6 +84,7 @@
 
     border-top: 2px solid #1C79F2;
 }
+
 .chatBox__input__send {
     flex: 1;
     outline: none;

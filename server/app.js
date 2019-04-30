@@ -3,6 +3,13 @@ const app = express()
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+var chatList = [
+    {
+        name : "공개 1",
+        users : []
+    }
+]
+
 io.on('connection', (socket) => {
     console.log('connect')
     socket.on('sendMsg', data => {

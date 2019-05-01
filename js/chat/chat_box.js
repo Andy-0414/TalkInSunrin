@@ -32,19 +32,22 @@ class ChatBox {
         return {
             subject: this,
             animation: function (able) {
-                if (this.subject.currentVelocityX >= 0.0001 || this.subject.currentVelocityY >= 0.0001 || able) {
-                    var changeX = (this.subject.getX() + this.subject.currentVelocityX)
-                    var changeY = (this.subject.getY() + this.subject.currentVelocityY)
+                var changeX = (this.subject.getX() + this.subject.currentVelocityX)
+                var changeY = (this.subject.getY() + this.subject.currentVelocityY)
+                var outX = changeX + this.subject.getSizeX() > innerWidth
+                var outY = changeY + this.subject.getSizeY() > innerHeight
+                var outmX = changeX < 0
+                var outmY = changeY < 0
 
-                    if (changeX + this.subject.getSizeX() > innerWidth) {
+                if (Math.abs(this.subject.currentVelocityX) >= 0.00001 || Math.abs(this.subject.currentVelocityY) >= 0.00001 || able || outX || outY || outmX || outmY) {
+                    if (outX) {
                         this.subject.currentVelocityX += (((innerWidth - this.subject.getSizeX()) - this.subject.getX()) - this.subject.currentVelocityX) / (60 / this.subject.returnForce)
-                    } else if (changeX < 0) {
+                    } else if (outmX) {
                         this.subject.currentVelocityX += ((-this.subject.getX()) - this.subject.currentVelocityX) / (60 / this.subject.returnForce)
                     }
-
-                    if (changeY + this.subject.getSizeY() > innerHeight) {
+                    if (outY) {
                         this.subject.currentVelocityY += (((innerHeight - this.subject.getSizeY()) - this.subject.getY()) - this.subject.currentVelocityY) / (60 / this.subject.returnForce)
-                    } else if (changeY < 0) {
+                    } else if (outmY) {
                         this.subject.currentVelocityY += ((-this.subject.getY()) - this.subject.currentVelocityY) / (60 / this.subject.returnForce)
                     }
                     this.subject.currentVelocityX /= this.subject.friction

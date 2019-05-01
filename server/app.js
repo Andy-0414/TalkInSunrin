@@ -6,7 +6,7 @@ var io = require('socket.io')(http);
 var chatList = [
     {
         name : "공개 1",
-        users : []
+        users : new Set()
     }
 ]
 

@@ -10,10 +10,7 @@ var resizeTarget = null;
 var isClick = false;
 var currentX = 0;
 var currentY = 0;
-var currentVelocityX = 0;
-var currentVelocityY = 0;
-var currentSizeX = 0;
-var currentSizeY = 0;
+
 var loop = null;
 
 document.addEventListener("mousedown", (e) => {
@@ -33,38 +30,37 @@ document.addEventListener("mousedown", (e) => {
 
         currentX = e.clientX - target.controller.getX()
         currentY = e.clientY - target.controller.getY()
-        if (loop) clearInterval(loop)
-        loop = setInterval(() => {
-            if ((Math.abs(currentVelocityX) >= 0.0001 || Math.abs(currentVelocityY) >= 0.0001 || isClick == 2) && !resizeTarget) {
-                var changeX = (target.controller.getX() + currentVelocityX)
-                var changeY = (target.controller.getY() + currentVelocityY)
+        // if (loop) clearInterval(loop)
+        // loop = setInterval(() => {
+        //     if ((Math.abs(currentVelocityX) >= 0.0001 || Math.abs(currentVelocityY) >= 0.0001 || isClick == 2) && !resizeTarget) {
+        //         var changeX = (target.controller.getX() + currentVelocityX)
+        //         var changeY = (target.controller.getY() + currentVelocityY)
 
-                if (changeX + target.controller.getSizeX() > innerWidth) {
-                    currentVelocityX += (((innerWidth - target.controller.getSizeX()) - target.controller.getX()) - currentVelocityX) / 60
-                } else if (changeX < 0) {
-                    currentVelocityX += ((-target.controller.getX()) - currentVelocityX) / 60
-                }
+        //         if (changeX + target.controller.getSizeX() > innerWidth) {
+        //             currentVelocityX += (((innerWidth - target.controller.getSizeX()) - target.controller.getX()) - currentVelocityX) / 60
+        //         } else if (changeX < 0) {
+        //             currentVelocityX += ((-target.controller.getX()) - currentVelocityX) / 60
+        //         }
 
-                if (changeY + target.controller.getSizeY() > innerHeight) {
-                    currentVelocityY += (((innerHeight - target.controller.getSizeY()) - target.controller.getY()) - currentVelocityY) / 60
-                } else if (changeY < 0) {
-                    currentVelocityY += ((-target.controller.getY()) - currentVelocityY) / 60
-                }
-                currentVelocityX /= 1.15
-                currentVelocityY /= 1.15
+        //         if (changeY + target.controller.getSizeY() > innerHeight) {
+        //             currentVelocityY += (((innerHeight - target.controller.getSizeY()) - target.controller.getY()) - currentVelocityY) / 60
+        //         } else if (changeY < 0) {
+        //             currentVelocityY += ((-target.controller.getY()) - currentVelocityY) / 60
+        //         }
+        //         currentVelocityX /= 1.15
+        //         currentVelocityY /= 1.15
 
-                target.controller.setPos(changeX, changeY)
-            } else {
-                target = null
-                clearInterval(this)
-            }
-        }, 1000 / 60)
+        //         target.controller.setPos(changeX, changeY)
+        //     } else {
+        //         target = null
+        //         clearInterval(this)
+        //     }
+        // }, 1000 / 60)
     }
 })
 document.addEventListener("mousemove", (e) => {
     if (target && isClick) {
-        currentVelocityX = (e.clientX - (target.controller.getX() + currentX)) / 5
-        currentVelocityY = (e.clientY - (target.controller.getY() + currentY)) / 5
+        target.controller.setVelocity((e.clientX - (target.controller.getX() + currentX)) / 5, (e.clientY - (target.controller.getY() + currentY)) / 5)
     }
     if (resizeTarget) {
         if (loop) clearInterval(loop)

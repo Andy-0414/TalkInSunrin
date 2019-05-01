@@ -12,6 +12,9 @@ class ChatBox {
         this.currentVelocityY = 0;
         this.currentSizeX = 0;
         this.currentSizeY = 0;
+
+        this.friction = 1.15
+        this.returnForce = 1
     }
     getX() {
         return this.x
@@ -28,29 +31,30 @@ class ChatBox {
     getAnimation() {
         return {
             subject: this,
-            animation: () => {
-                if ((Math.abs(currentVelocityX) >= 0.0001 || Math.abs(currentVelocityY) >= 0.0001 || isClick == 2) && !resizeTarget) {
+            animation: function (able) {
+                if (this.subject.currentVelocityX >= 0.0001 || this.subject.currentVelocityY >= 0.0001 || able) {
                     var changeX = (this.subject.getX() + this.subject.currentVelocityX)
                     var changeY = (this.subject.getY() + this.subject.currentVelocityY)
 
                     if (changeX + this.subject.getSizeX() > innerWidth) {
-                        currentVelocityX += (((innerWidth - this.subject.getSizeX()) - this.subject.getX()) - this.subject.currentVelocityX) / 60
+                        this.subject.currentVelocityX += (((innerWidth - this.subject.getSizeX()) - this.subject.getX()) - this.subject.currentVelocityX) / (60 / this.subject.returnForce)
                     } else if (changeX < 0) {
-                        currentVelocityX += ((-this.subject.getX()) - currentVelocityX) / 60
+                        this.subject.currentVelocityX += ((-this.subject.getX()) - this.subject.currentVelocityX) / (60 / this.subject.returnForce)
                     }
 
                     if (changeY + this.subject.getSizeY() > innerHeight) {
-                        this.subject.currentVelocityY += (((innerHeight - this.subject.getSizeY()) - this.subject.getY()) - this.subject.currentVelocityY) / 60
+                        this.subject.currentVelocityY += (((innerHeight - this.subject.getSizeY()) - this.subject.getY()) - this.subject.currentVelocityY) / (60 / this.subject.returnForce)
                     } else if (changeY < 0) {
-                        this.subject.currentVelocityY += ((-this.subject.getY()) - currentVelocityY) / 60
+                        this.subject.currentVelocityY += ((-this.subject.getY()) - this.subject.currentVelocityY) / (60 / this.subject.returnForce)
                     }
-                    this.subject.currentVelocityX /= 1.15
-                    this.subject.currentVelocityY /= 1.15
+                    this.subject.currentVelocityX /= this.subject.friction
+                    this.subject.currentVelocityY /= this.subject.friction
 
                     this.subject.setPos(changeX, changeY)
+                    return 1
                 } else {
                     target = null
-                    clearInterval(this)
+                    return 0
                 }
             }
         }

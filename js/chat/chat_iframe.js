@@ -5,6 +5,8 @@ var chatListBox = document.getElementsByClassName("chatList")[0]
 var chatList = document.getElementsByClassName('chatBox')
 
 var myRoom = []
+var animationScheduler = new AnimationScheduler()
+animationScheduler.start()
 
 socket.on("sendChatList", data => {
     friendList.innerHTML = ""
@@ -26,7 +28,7 @@ socket.on("joinRoomClear", data => {
     var chatBox__Content = document.createElement("div")
     var chatBox__Content__Message = document.createElement("div")
     var chatBox__Input = document.createElement("div")
-    var chatBox__Input__Message = document.createElement("textarea")
+    var chatBox__Input__Message = document.createElement("input")
     var chatBox__Resize = document.createElement("div")
 
     chatBoxDiv.classList.add("chatBox")
@@ -50,25 +52,29 @@ socket.on("joinRoomClear", data => {
 
     chatBoxDiv.appendChild(chatBox__Resize)
 
-    chatListBox.appendChild(chatBoxDiv)
-    var controllerDiv = new ChatBox() 
+    var controllerDiv = new ChatBox(data._id)
     controllerDiv.setProp(chatBoxDiv)
     controllerDiv.setPos(100,2000)
+    controllerDiv.setChatEvent((_id,msg)=>{
+        socket.emit("sendToServerMessage", {
+            _id,msg
+        })
+    })
     animationScheduler.addAnimation(controllerDiv)
+
+    chatListBox.appendChild(chatBoxDiv)
+
     myRoom.push({
         controller: controllerDiv,
-        _id : data._id
-    })
-
-    var chatList = document.getElementsByClassName('chatBox')
-    ;[...chatList].forEach(x=>{
-        var a = new ChatBox()
-        a.setProp(x)
+        _id: data._id
     })
 })
-
-const animationScheduler = new AnimationScheduler()
-animationScheduler.start()
+socket.on("sendToClientMessage", data => {
+    var idx = myRoom.findIndex(x=>x._id == data._id)
+    if(idx != -1){
+        myRoom[idx].controller.writeMessage(data.msg)
+    }
+})
 
 var target = null;
 var resizeTarget = null;
@@ -85,12 +91,11 @@ document.addEventListener("mousedown", (e) => {
     } else if (e.target.parentElement.classList.contains("chatBox")) {
         isClick = 2
         target = e.target.parentElement
-
-            ;[...chatList].forEach(x => {
-                x.style.zIndex = 0
-            })
+        ;
+        [...chatList].forEach(x => {
+            x.style.zIndex = 0
+        })
         target.style.zIndex = 10
-
         currentX = e.clientX - target.controller.getX()
         currentY = e.clientY - target.controller.getY()
 

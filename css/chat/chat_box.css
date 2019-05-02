@@ -72,6 +72,7 @@
 .chatBox__content {
     padding: 8px;
     flex: 8;
+    overflow-y: scroll;
 }
 
 .chatBox__content__message {}

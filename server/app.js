@@ -29,7 +29,8 @@ io.on('connection', (socket) => {
         }
     })
     socket.on("sendToServerMessage", data => {
-        socket.broadcast.to(data._id).emit("sendToClientMessage", data)
+        console.log(data)
+        io.sockets.to(data._id).emit("sendToClientMessage", data)
     })
     socket.on("disconnect", data => {
         chatList.forEach(x => {

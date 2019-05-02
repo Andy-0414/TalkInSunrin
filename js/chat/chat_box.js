@@ -1,8 +1,8 @@
 class ChatBox {
-    constructor(prop) {
-        this.prop = prop;
+    constructor(_id,prop) {
+        this._id = _id
         if (prop)
-            this.prop.controller = this
+            this.setProp(prop)
         this.x = 0;
         this.y = 0;
         this.sizeX = 200;
@@ -25,14 +25,13 @@ class ChatBox {
     getSizeX() {
         return this.sizeX
     }
-    getSizeY(){
+    getSizeY() {
         return this.sizeY
     }
     getAnimation() {
         return {
             subject: this,
             animation: function (able) {
-                console.log(this.subject.x, this.subject.y)
                 var changeX = (this.subject.getX() + this.subject.currentVelocityX)
                 var changeY = (this.subject.getY() + this.subject.currentVelocityY)
                 var outX = changeX + this.subject.getSizeX() > innerWidth
@@ -75,6 +74,16 @@ class ChatBox {
     setProp(prop) {
         this.prop = prop
         this.prop.controller = this
+        this.chat = this.prop.children[1]
+        this.input = this.prop.children[2].children[0]
+    }
+    setChatEvent(chatEvent) {
+        this.input.addEventListener("keydown",e => {
+            if (e.keyCode == 13) {
+                chatEvent(this._id,this.input.value)
+                this.input.value = null
+            }
+        })
     }
     setPos(x, y) {
         this.x = x
@@ -86,5 +95,13 @@ class ChatBox {
         this.prop.style.left = `${this.x}px`
         this.prop.style.width = `${this.sizeX}px`
         this.prop.style.height = `${this.sizeY}px`
+    }
+    writeMessage(msg) {
+        var div = document.createElement("div")
+        div.classList.add("chatBox__content__message")
+        div.innerText = msg
+        this.chat.appendChild(div)
+        if (this.chat.childElementCount > 40) this.chat.removeChild(this.chat.children[0])
+        this.chat.scrollTo(0, this.chat.scrollHeight)
     }
 }

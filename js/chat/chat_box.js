@@ -25,13 +25,14 @@ class ChatBox {
     getSizeX() {
         return this.sizeX
     }
-    getSizeY() {
+    getSizeY(){
         return this.sizeY
     }
     getAnimation() {
         return {
             subject: this,
             animation: function (able) {
+                console.log(this.subject.x, this.subject.y)
                 var changeX = (this.subject.getX() + this.subject.currentVelocityX)
                 var changeY = (this.subject.getY() + this.subject.currentVelocityY)
                 var outX = changeX + this.subject.getSizeX() > innerWidth

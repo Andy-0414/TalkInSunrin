@@ -8,6 +8,12 @@ var myRoom = []
 var animationScheduler = new AnimationScheduler()
 animationScheduler.start()
 
+window.addEventListener("resize",e=>{
+    [...chatList].forEach(x => {
+        addAnimation(x.controller)
+    })
+})
+
 socket.on("sendChatList", data => {
     friendList.innerHTML = ""
     data.forEach(x => {
@@ -54,7 +60,7 @@ socket.on("joinRoomClear", data => {
 
     var controllerDiv = new ChatBox(data._id)
     controllerDiv.setProp(chatBoxDiv)
-    controllerDiv.setPos(100,2000)
+    controllerDiv.setPos(3000,100)
     controllerDiv.setChatEvent((_id,msg)=>{
         socket.emit("sendToServerMessage", {
             _id,msg

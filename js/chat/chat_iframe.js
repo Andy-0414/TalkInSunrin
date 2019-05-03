@@ -8,7 +8,7 @@ var myRoom = []
 var animationScheduler = new AnimationScheduler()
 animationScheduler.start()
 
-window.addEventListener("resize",e=>{
+window.addEventListener("resize", e => {
     [...chatList].forEach(x => {
         addAnimation(x.controller)
     })
@@ -60,11 +60,18 @@ socket.on("joinRoomClear", data => {
 
     var controllerDiv = new ChatBox(data._id)
     controllerDiv.setProp(chatBoxDiv)
-    controllerDiv.setPos(3000,100)
-    controllerDiv.setChatEvent((_id,msg)=>{
+    controllerDiv.setPos(3000, 100)
+    controllerDiv.setChatEvent((_id, msg) => {
         socket.emit("sendToServerMessage", {
-            _id,msg
+            _id, msg
         })
+    })
+    controllerDiv.setLeaveEvent(_id => {
+        var idx = myRoom.findIndex(x => x._id == _id)
+        if (idx != -1) {
+            myRoom.splice(idx, 1)
+            socket.emit("leaveRoom", { _id })
+        }
     })
     animationScheduler.addAnimation(controllerDiv)
 
@@ -76,8 +83,8 @@ socket.on("joinRoomClear", data => {
     })
 })
 socket.on("sendToClientMessage", data => {
-    var idx = myRoom.findIndex(x=>x._id == data._id)
-    if(idx != -1){
+    var idx = myRoom.findIndex(x => x._id == data._id)
+    if (idx != -1) {
         myRoom[idx].controller.writeMessage(data.msg)
     }
 })
@@ -90,14 +97,18 @@ var currentY = 0;
 
 document.addEventListener("mousedown", (e) => {
     isClick = 1
-    if (e.target.classList.contains("chatBox__resize")) {
+    if (e.target.classList.contains("chatBox__head__close")) {
+        target = e.target.parentElement.parentElement
+        target.controller.leaveRoom()
+    }
+    else if (e.target.classList.contains("chatBox__resize")) {
         resizeTarget = e.target.parentElement
         currentSizeX = resizeTarget.controller.getSizeX()
         currentSizeY = resizeTarget.controller.getSizeY()
     } else if (e.target.parentElement.classList.contains("chatBox")) {
         isClick = 2
         target = e.target.parentElement
-        ;
+            ;
         [...chatList].forEach(x => {
             x.style.zIndex = 0
         })

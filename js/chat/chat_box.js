@@ -85,6 +85,9 @@ class ChatBox {
             }
         })
     }
+    setLeaveEvent(chatEvent){
+        this.leave = chatEvent
+    }
     setPos(x, y) {
         this.x = x
         this.y = y
@@ -95,6 +98,11 @@ class ChatBox {
         this.prop.style.left = `${this.x}px`
         this.prop.style.width = `${this.sizeX}px`
         this.prop.style.height = `${this.sizeY}px`
+    }
+    leaveRoom(){
+        this.leave(this._id)
+        this.prop.parentElement.removeChild(this.prop)
+        delete this
     }
     writeMessage(msg) {
         var div = document.createElement("div")

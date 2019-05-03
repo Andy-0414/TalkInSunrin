@@ -2,6 +2,13 @@ const express = require('express')
 const app = express()
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+app.use(express.static('public'))
+app.get("/",(req,res)=>{
+    res.sendfile("./public/index.html")
+})
+app.get("/chat_iframe",(req,res)=>{
+    res.sendfile("./public/views/chat_iframe.html")
+})
 
 var chatList = [
     {

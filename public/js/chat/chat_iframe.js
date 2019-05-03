@@ -1,4 +1,4 @@
-var socket = io("localhost:3000")
+var socket = io()
 var friendList = document.getElementsByClassName("friendList__list")[0]
 var chatListBox = document.getElementsByClassName("chatList")[0]
 

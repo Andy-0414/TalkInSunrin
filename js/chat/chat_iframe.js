@@ -15,11 +15,12 @@ window.addEventListener("resize", e => {
 })
 
 socket.on("sendChatList", data => {
+    console.log("sendChatList")
     friendList.innerHTML = ""
     data.forEach(x => {
         var div = document.createElement("div")
         div.classList.add("friendList__list__item")
-        div.innerText = x.name
+        div.innerText = `${x.name} [${x.users.length}]`
         div.addEventListener("click", e => {
             socket.emit("joinRoom", x)
         })

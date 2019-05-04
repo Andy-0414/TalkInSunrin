@@ -106,10 +106,7 @@ var currentY = 0;
 
 document.addEventListener("mousedown", (e) => {
     isClick = 1
-    if (e.target.classList.contains("chatBox__head__close")) {
-        target = e.target.parentElement.parentElement
-        target.controller.leaveRoom()
-    } else if (e.target.classList.contains("chatBox__resize")) {
+    if (e.target.classList.contains("chatBox__resize")) {
         resizeTarget = e.target.parentElement
         currentSizeX = resizeTarget.controller.getSizeX()
         currentSizeY = resizeTarget.controller.getSizeY()
@@ -128,14 +125,14 @@ document.addEventListener("mousedown", (e) => {
     }
 })
 document.addEventListener("mousemove", (e) => {
-    if (target && isClick) {
-        target.controller.setVelocity((e.clientX - (target.controller.getX() + currentX)) / 5, (e.clientY - (target.controller.getY() + currentY)) / 5)
-    }
     if (resizeTarget) {
-        if (loop) clearInterval(loop)
+        animationScheduler.onDisable()
         resizeTarget.controller.setSize(
             currentSizeX + (e.clientX - currentSizeX - resizeTarget.controller.getX()),
             currentSizeY + (e.clientY - currentSizeY - resizeTarget.controller.getY()))
+    }
+    else if (target && isClick) {
+        target.controller.setVelocity((e.clientX - (target.controller.getX() + currentX)) / 5, (e.clientY - (target.controller.getY() + currentY)) / 5)
     }
 })
 document.addEventListener("mouseup", (e) => {

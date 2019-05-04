@@ -76,6 +76,7 @@ class ChatBox {
         this.prop.controller = this
         this.chat = this.prop.children[1]
         this.input = this.prop.children[2].children[0]
+        this.leave = this.prop.children[0].children[0]
     }
     setChatEvent(chatEvent) {
         this.input.addEventListener("keydown",e => {
@@ -86,7 +87,11 @@ class ChatBox {
         })
     }
     setLeaveEvent(chatEvent){
-        this.leave = chatEvent
+        this.leave.addEventListener("click",e=>{
+            chatEvent(this._id)
+            this.prop.parentElement.removeChild(this.prop)
+            delete this
+        })
     }
     setPos(x, y) {
         this.x = x
@@ -98,11 +103,6 @@ class ChatBox {
         this.prop.style.left = `${this.x}px`
         this.prop.style.width = `${this.sizeX}px`
         this.prop.style.height = `${this.sizeY}px`
-    }
-    leaveRoom(){
-        this.leave(this._id)
-        this.prop.parentElement.removeChild(this.prop)
-        delete this
     }
     writeMessage(msg) {
         var div = document.createElement("div")

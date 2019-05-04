@@ -40,7 +40,7 @@
 
     width: 100vw;
     height: calc(100vh - 80px);
-    overflow: hidden;
+
 }
 
 .main__text {
@@ -64,7 +64,8 @@
     font-size: 3em;
     font-weight: bold;
 }
-.main__text__content__name{
+
+.main__text__content__name {
     background: none;
     border: none;
     border-bottom: 1px solid white;
@@ -73,6 +74,7 @@
     font-size: 1em;
     transition: 0.2s;
 }
+
 .main__text__content__button {
     transition: 0.5s;
 
@@ -165,6 +167,13 @@
 }
 
 @media (max-width:720px) {
+    html{
+        overflow: hidden;
+    }
+    .main {
+        overflow: hidden;
+    }
+
     .main__box1 {
         width: 2000px;
     }
@@ -192,15 +201,18 @@
         left: 0;
         top: 0;
     }
-    .topMenu{
+
+    .topMenu {
         width: 100vw;
         justify-content: center;
     }
-    .topMenu__left{
+
+    .topMenu__left {
         margin: 0;
 
     }
-    .topMenu__right{
+
+    .topMenu__right {
         margin: 0;
         display: none;
     }

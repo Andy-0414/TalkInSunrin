@@ -11,6 +11,7 @@
     width: 100vw;
     height: 80px;
 
+    background-color: #4DD862;
 
     z-index: 100;
 }
@@ -39,7 +40,7 @@
 
     width: 100vw;
     height: calc(100vh - 80px);
-
+    overflow: hidden;
 }
 
 .main__text {
@@ -185,8 +186,8 @@
     .main__text__content {
         display: flex;
         height: 600px;
-
-        font-size: 2em;
+        padding: 50px;
+        font-size: 1.8em;
         position: static;
         left: 0;
         top: 0;

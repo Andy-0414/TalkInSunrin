@@ -140,3 +140,6 @@ document.addEventListener("mouseup", (e) => {
     isClick = false;
     resizeTarget = null
 })
+document.addEventListener("touchstart", document.onmousedown)
+document.addEventListener("touchmove", document.onmousemove)
+document.addEventListener("touchend", document.onmouseup)

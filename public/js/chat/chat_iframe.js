@@ -24,12 +24,13 @@ socket.on("sendChatList", data => {
     data.forEach(x => {
         var div = document.createElement("div")
         div.classList.add("friendList__list__item")
+        if (myRoom.findIndex(y => y._id == x._id) != -1)
+            div.classList.add("friendList__list__item-active")
         div.innerText = `${x.name} [${x.users.length}]`
         div.addEventListener("click", e => {
             socket.emit("joinRoom", x)
         })
         friendList.appendChild(div)
-
     })
 })
 socket.on("joinRoomClear", data => {
@@ -130,8 +131,7 @@ document.addEventListener("mousemove", (e) => {
         resizeTarget.controller.setSize(
             currentSizeX + (e.clientX - currentSizeX - resizeTarget.controller.getX()),
             currentSizeY + (e.clientY - currentSizeY - resizeTarget.controller.getY()))
-    }
-    else if (target && isClick) {
+    } else if (target && isClick) {
         target.controller.setVelocity((e.clientX - (target.controller.getX() + currentX)) / 5, (e.clientY - (target.controller.getY() + currentY)) / 5)
     }
 })

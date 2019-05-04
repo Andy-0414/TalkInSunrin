@@ -3,15 +3,14 @@ const app = express()
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 app.use(express.static('public'))
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
     res.sendfile("./public/index.html")
 })
-app.get("/chat_iframe",(req,res)=>{
+app.get("/chat_iframe", (req, res) => {
     res.sendfile("./public/views/chat_iframe.html")
 })
 
-var chatList = [
-    {
+var chatList = [{
         _id: 0,
         name: "공개 1",
         users: new Set()
@@ -20,10 +19,27 @@ var chatList = [
         _id: 1,
         name: "공개 2",
         users: new Set()
+    },
+    {
+        _id: 3,
+        name: "공개 3",
+        users: new Set()
+    },
+    {
+        _id: 4,
+        name: "공개 4",
+        users: new Set()
     }
 ]
-function getChatList(){
-    var arr = chatList.map(x=>{return {_id : x._id,name : x.name,users : Array.from(x.users)}})
+
+function getChatList() {
+    var arr = chatList.map(x => {
+        return {
+            _id: x._id,
+            name: x.name,
+            users: Array.from(x.users)
+        }
+    })
     return arr
 }
 io.on('connection', (socket) => {
@@ -34,7 +50,7 @@ io.on('connection', (socket) => {
             if (chatList[idx].users.has(socket.id)) {
                 socket.leave(data._id)
                 if (chatList[idx].users.has(socket.id))
-                chatList[idx].users.delete(socket.id)
+                    chatList[idx].users.delete(socket.id)
                 io.sockets.emit("sendChatList", getChatList())
             }
         }

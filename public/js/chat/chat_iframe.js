@@ -15,7 +15,7 @@ animationScheduler.start()
 
 window.addEventListener("resize", e => {
     [...chatList].forEach(x => {
-        addAnimation(x.controller)
+        animationScheduler.addAnimation(x.controller)
     })
 })
 
@@ -99,6 +99,46 @@ socket.on("sendToClientMessage", data => {
     }
 })
 
+
+function startEvent(_x, _y, _target) {
+    if (!_target) return
+    isClick = 1
+    if (_target.classList.contains("chatBox__resize")) {
+        resizeTarget = _target.parentElement
+        currentSizeX = resizeTarget.controller.getSizeX()
+        currentSizeY = resizeTarget.controller.getSizeY()
+    } else if (_target.parentElement.classList.contains("chatBox")) {
+        isClick = 2
+        target = _target.parentElement;
+        [...chatList].forEach(x => {
+            x.style.zIndex = 0
+        })
+        target.style.zIndex = 10
+        currentX = _x - target.controller.getX()
+        currentY = _y - target.controller.getY()
+
+        animationScheduler.onAble()
+        animationScheduler.addAnimation(target.controller)
+    }
+}
+
+function moveEvent(_x, _y) {
+    if (resizeTarget) {
+        animationScheduler.onDisable()
+        resizeTarget.controller.setSize(
+            currentSizeX + (_x - currentSizeX - resizeTarget.controller.getX()),
+            currentSizeY + (_y - currentSizeY - resizeTarget.controller.getY()))
+    } else if (target && isClick) {
+        target.controller.setVelocity((_x - (target.controller.getX() + currentX)) / 5, (_y - (target.controller.getY() + currentY)) / 5)
+    }
+}
+
+function endEvent() {
+    animationScheduler.onDisable()
+    isClick = false;
+    resizeTarget = null
+}
+
 var target = null;
 var resizeTarget = null;
 var isClick = false;
@@ -106,40 +146,21 @@ var currentX = 0;
 var currentY = 0;
 
 document.addEventListener("mousedown", (e) => {
-    isClick = 1
-    if (e.target.classList.contains("chatBox__resize")) {
-        resizeTarget = e.target.parentElement
-        currentSizeX = resizeTarget.controller.getSizeX()
-        currentSizeY = resizeTarget.controller.getSizeY()
-    } else if (e.target.parentElement.classList.contains("chatBox")) {
-        isClick = 2
-        target = e.target.parentElement;
-        [...chatList].forEach(x => {
-            x.style.zIndex = 0
-        })
-        target.style.zIndex = 10
-        currentX = e.clientX - target.controller.getX()
-        currentY = e.clientY - target.controller.getY()
-
-        animationScheduler.onAble()
-        animationScheduler.addAnimation(target.controller)
-    }
+    startEvent(e.clientX, e.clientY, e.target)
 })
 document.addEventListener("mousemove", (e) => {
-    if (resizeTarget) {
-        animationScheduler.onDisable()
-        resizeTarget.controller.setSize(
-            currentSizeX + (e.clientX - currentSizeX - resizeTarget.controller.getX()),
-            currentSizeY + (e.clientY - currentSizeY - resizeTarget.controller.getY()))
-    } else if (target && isClick) {
-        target.controller.setVelocity((e.clientX - (target.controller.getX() + currentX)) / 5, (e.clientY - (target.controller.getY() + currentY)) / 5)
-    }
+    moveEvent(e.clientX, e.clientY)
 })
 document.addEventListener("mouseup", (e) => {
-    animationScheduler.onDisable()
-    isClick = false;
-    resizeTarget = null
+    endEvent()
 })
-document.addEventListener("touchstart", document.onmousedown)
-document.addEventListener("touchmove", document.onmousemove)
-document.addEventListener("touchend", document.onmouseup)
+
+document.addEventListener("touchstart", (e) => {
+    startEvent(e.touches[0].pageX, e.touches[0].pageY, e.target)
+})
+document.addEventListener("touchmove", (e) => {
+    moveEvent(e.touches[0].pageX, e.touches[0].pageY)
+})
+document.addEventListener("touchend", (e) => {
+    endEvent()
+})

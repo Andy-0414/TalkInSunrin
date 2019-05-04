@@ -14,7 +14,7 @@ var animationScheduler = new AnimationScheduler()
 animationScheduler.start()
 
 window.addEventListener("resize", e => {
-    [...chatList].forEach(x => {
+    Array.from(chatList).forEach(x => {
         animationScheduler.addAnimation(x.controller)
     })
 })
@@ -109,8 +109,8 @@ function startEvent(_x, _y, _target) {
         currentSizeY = resizeTarget.controller.getSizeY()
     } else if (_target.parentElement.classList.contains("chatBox")) {
         isClick = 2
-        target = _target.parentElement;
-        [...chatList].forEach(x => {
+        target = _target.parentElement
+        Array.from(chatList).forEach(x => {
             x.style.zIndex = 0
         })
         target.style.zIndex = 10

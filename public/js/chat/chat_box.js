@@ -110,6 +110,6 @@ class ChatBox {
         div.innerHTML = msg
         this.chat.appendChild(div)
         if (this.chat.childElementCount > 40) this.chat.removeChild(this.chat.children[0])
-        this.chat.scrollTo(0, this.chat.scrollHeight)
+        this.chat.scrollTop = this.chat.scrollHeight
     }
 }

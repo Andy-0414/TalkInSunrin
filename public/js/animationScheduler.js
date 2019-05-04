@@ -5,21 +5,30 @@ class AnimationScheduler {
         this.workList = []
         this.isAble = false
     }
-    onAble(){
+    onAble() {
         this.isAble = true
+        if (!this.scheduler) this.start()
     }
-    onDisable(){
+    onDisable() {
         this.isAble = false
     }
     addAnimation(chat) {
         if (this.workList.findIndex(x => x.subject.prop == chat.prop) == -1)
             this.workList.push(chat.getAnimation())
+        if (!this.scheduler) this.start()        
     }
     start() {
         this.scheduler = setInterval(() => {
-            this.workList = this.workList.filter(x => {
-                return x.animation(this.isAble) ? x.animation : false
+            var idx = this.workList.findIndex(x => {
+                return !x.animation(this.isAble)
             })
+            if(idx != -1){
+                this.workList.splice(idx,1)
+            }
+            if (!this.workList.length) {
+                clearInterval(this.scheduler)
+                this.scheduler = null
+            }
         }, this.rate)
     }
 }

@@ -3,7 +3,10 @@
     src: url('../assets/NanumSquareR.ttf') format('truetype'),
     url('../assets/NanumSquareR.ttf') format('embedded-opentype');
 }
-
+*:link,
+*:visited{
+    color: white;
+}
 *{
     font-family: 'NanumSquareR';
     padding: 0;
@@ -12,6 +15,7 @@
     list-style: none;
 
     letter-spacing: 1px;
+    user-select: none;
 }
 body{
     width: 100vw;

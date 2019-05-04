@@ -1,3 +1,8 @@
+var username = localStorage.getItem("TIS_username")
+if (!username) {
+    document.location.href = "/"
+}
+
 var socket = io()
 var friendList = document.getElementsByClassName("friendList__list")[0]
 var chatListBox = document.getElementsByClassName("chatList")[0]
@@ -15,7 +20,6 @@ window.addEventListener("resize", e => {
 })
 
 socket.on("sendChatList", data => {
-    console.log("sendChatList")
     friendList.innerHTML = ""
     data.forEach(x => {
         var div = document.createElement("div")
@@ -64,14 +68,18 @@ socket.on("joinRoomClear", data => {
     controllerDiv.setPos(3000, 100)
     controllerDiv.setChatEvent((_id, msg) => {
         socket.emit("sendToServerMessage", {
-            _id, msg
+            _id,
+            msg,
+            username
         })
     })
     controllerDiv.setLeaveEvent(_id => {
         var idx = myRoom.findIndex(x => x._id == _id)
         if (idx != -1) {
             myRoom.splice(idx, 1)
-            socket.emit("leaveRoom", { _id })
+            socket.emit("leaveRoom", {
+                _id
+            })
         }
     })
     animationScheduler.addAnimation(controllerDiv)
@@ -86,7 +94,7 @@ socket.on("joinRoomClear", data => {
 socket.on("sendToClientMessage", data => {
     var idx = myRoom.findIndex(x => x._id == data._id)
     if (idx != -1) {
-        myRoom[idx].controller.writeMessage(data.msg)
+        myRoom[idx].controller.writeMessage(`<b>${data.username} :</b> ${data.msg}`)
     }
 })
 
@@ -101,15 +109,13 @@ document.addEventListener("mousedown", (e) => {
     if (e.target.classList.contains("chatBox__head__close")) {
         target = e.target.parentElement.parentElement
         target.controller.leaveRoom()
-    }
-    else if (e.target.classList.contains("chatBox__resize")) {
+    } else if (e.target.classList.contains("chatBox__resize")) {
         resizeTarget = e.target.parentElement
         currentSizeX = resizeTarget.controller.getSizeX()
         currentSizeY = resizeTarget.controller.getSizeY()
     } else if (e.target.parentElement.classList.contains("chatBox")) {
         isClick = 2
-        target = e.target.parentElement
-            ;
+        target = e.target.parentElement;
         [...chatList].forEach(x => {
             x.style.zIndex = 0
         })

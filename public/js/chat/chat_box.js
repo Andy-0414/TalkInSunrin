@@ -79,7 +79,7 @@ class ChatBox {
     }
     setChatEvent(chatEvent) {
         this.input.addEventListener("keydown",e => {
-            if (e.keyCode == 13) {
+            if (e.keyCode == 13 && this.input.value) {
                 chatEvent(this._id,this.input.value)
                 this.input.value = null
             }
@@ -107,7 +107,7 @@ class ChatBox {
     writeMessage(msg) {
         var div = document.createElement("div")
         div.classList.add("chatBox__content__message")
-        div.innerText = msg
+        div.innerHTML = msg
         this.chat.appendChild(div)
         if (this.chat.childElementCount > 40) this.chat.removeChild(this.chat.children[0])
         this.chat.scrollTo(0, this.chat.scrollHeight)

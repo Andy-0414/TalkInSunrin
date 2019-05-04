@@ -63,7 +63,15 @@
     font-size: 3em;
     font-weight: bold;
 }
-
+.main__text__content__name{
+    background: none;
+    border: none;
+    border-bottom: 1px solid white;
+    color: white;
+    outline: none;
+    font-size: 1em;
+    transition: 0.2s;
+}
 .main__text__content__button {
     transition: 0.5s;
 
@@ -176,6 +184,7 @@
 
     .main__text__content {
         display: flex;
+        height: 600px;
 
         font-size: 2em;
         position: static;

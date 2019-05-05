@@ -83,7 +83,7 @@ body{
     font-size: 2.4em;
 }
 .friendList__list__item-active{
-    color: rgba(255, 255, 255, 187);
+    color: rgba(255, 255, 255, 0.5);
     animation: borderAnimation 0.5s forwards;
 }
 

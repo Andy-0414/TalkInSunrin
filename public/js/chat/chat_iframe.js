@@ -3,6 +3,7 @@ if (!username) {
     document.location.href = "/"
 }
 
+
 var socket = io()
 var friendList = document.getElementsByClassName("friendList__list")[0]
 var chatListBox = document.getElementsByClassName("chatList")[0]
@@ -99,6 +100,11 @@ socket.on("sendToClientMessage", data => {
     }
 })
 
+var target = null;
+var resizeTarget = null;
+var isClick = false;
+var currentX = 0;
+var currentY = 0;
 
 function startEvent(_x, _y, _target) {
     if (!_target) return
@@ -139,11 +145,15 @@ function endEvent() {
     resizeTarget = null
 }
 
-var target = null;
-var resizeTarget = null;
-var isClick = false;
-var currentX = 0;
-var currentY = 0;
+var toggle = false
+document.addEventListener("keypress", e => {
+    if (e.ctrlKey && e.code == "KeyQ")
+        toggle = !toggle
+    if (toggle)
+        chatListBox.style.display = "none"
+    else
+        chatListBox.style.display = "inline-block"
+})
 
 document.addEventListener("mousedown", (e) => {
     startEvent(e.clientX, e.clientY, e.target)

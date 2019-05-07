@@ -41,7 +41,7 @@ socket.on("joinRoomClear", data => {
     var chatBox__Content = document.createElement("div")
     var chatBox__Content__Message = document.createElement("div")
     var chatBox__Input = document.createElement("div")
-    var chatBox__Input__Message = document.createElement("input")
+    var chatBox__Input__Message = document.createElement("textarea")
     var chatBox__Resize = document.createElement("div")
 
     chatBoxDiv.classList.add("chatBox")
@@ -96,7 +96,7 @@ socket.on("joinRoomClear", data => {
 socket.on("sendToClientMessage", data => {
     var idx = myRoom.findIndex(x => x._id == data._id)
     if (idx != -1) {
-        myRoom[idx].controller.writeMessage(`<b>${data.username} :</b> ${data.msg}`)
+        myRoom[idx].controller.writeMessage(data.username,data.msg)
     }
 })
 

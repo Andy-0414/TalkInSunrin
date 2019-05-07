@@ -15,6 +15,7 @@ class ChatBox {
 
         this.friction = 1.15
         this.returnForce = 1
+        this.prevName = ""
     }
     getX() {
         return this.x
@@ -77,14 +78,27 @@ class ChatBox {
         this.chat = this.prop.children[1]
         this.input = this.prop.children[2].children[0]
         this.leave = this.prop.children[0].children[0]
+        this.input_mde = new SimpleMDE({
+            element : this.input,
+            status: false,
+            tabSize: 4,
+            toolbar: false,
+            toolbarTips: false,
+        })
+        
     }
     setChatEvent(chatEvent) {
-        this.input.addEventListener("keydown",e => {
-            if (e.keyCode == 13 && this.input.value) {
-                chatEvent(this._id,this.input.value)
-                this.input.value = null
+        this.input_mde.codemirror.on("keyHandled", (codeMirror, name, e) => {
+            if(e.key == "Enter"){
+                chatEvent(this._id, this.input_mde.value())
+            this.input_mde.value("")
             }
         })
+        // this.input.addEventListener("keydown",e => {
+        //     if (e.keyCode == 13 && this.input.value) {
+        //         this.input.value = null
+        //     }
+        // })
     }
     setLeaveEvent(chatEvent){
         this.leave.addEventListener("click",e=>{
@@ -104,12 +118,13 @@ class ChatBox {
         this.prop.style.width = `${this.sizeX}px`
         this.prop.style.height = `${this.sizeY}px`
     }
-    writeMessage(msg) {
+    writeMessage(name,msg) {
         var div = document.createElement("div")
         div.classList.add("chatBox__content__message")
-        div.innerText = msg
+        div.innerHTML = (this.prevName != name ? `<hr><div class="chatBox__content__name">${name}</div>` : "") + marked(msg)
         this.chat.appendChild(div)
         if (this.chat.childElementCount > 40) this.chat.removeChild(this.chat.children[0])
         this.chat.scrollTop = this.chat.scrollHeight
+        this.prevName = name
     }
 }

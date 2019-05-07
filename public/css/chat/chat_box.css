@@ -4,7 +4,7 @@
     left: 0;
 
     background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 5px;
+    border-radius: 3px;
 
     width: 200px;
     height: 300px;
@@ -73,18 +73,22 @@
     flex: 8;
     overflow-y: scroll;
 }
-
-.chatBox__content__message {}
+.chatBox__content__message{
+    margin: 2px 0px;
+}
+hr{
+    margin: 10px 0px;
+}
+.chatBox__content__name{
+    font-size: 1.1em;
+    font-weight: bold;
+}
 
 .chatBox__input {
     height: 40px;
-    display: flex;
 }
 
 .chatBox__input__message {
-    flex: 10;
-    height: 100%;
-
     outline: none;
     border: none;
     resize: none;
@@ -93,11 +97,8 @@
 
     border-top: 2px solid #1C79F2;
 }
-
-.chatBox__input__send {
-    flex: 1;
-    outline: none;
-    background-color: #1C79F2;
-    border: none;
-    color: white;
+.CodeMirror,
+.CodeMirror-scroll {
+    min-height :0px !important;
+    height: 100%;
 }

@@ -85,7 +85,7 @@ hr{
 }
 
 .chatBox__input {
-    height: 40px;
+    height: 60px;
 }
 
 .chatBox__input__message {
@@ -101,4 +101,5 @@ hr{
 .CodeMirror-scroll {
     min-height :0px !important;
     height: 100%;
+    padding: 0;
 }

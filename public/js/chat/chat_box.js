@@ -84,6 +84,7 @@ class ChatBox {
             tabSize: 4,
             toolbar: false,
             toolbarTips: false,
+            lineWrapping : false
         })
         
     }

@@ -21,7 +21,7 @@ window.addEventListener("resize", e => {
 })
 
 socket.on("sendChatList", data => {
-    friendList.innerHTML = ""
+    friendList.innerText = ""
     data.forEach(x => {
         var div = document.createElement("div")
         div.classList.add("friendList__list__item")

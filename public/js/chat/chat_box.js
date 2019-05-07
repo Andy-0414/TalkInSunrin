@@ -107,7 +107,7 @@ class ChatBox {
     writeMessage(msg) {
         var div = document.createElement("div")
         div.classList.add("chatBox__content__message")
-        div.innerHTML = msg
+        div.innerText = msg
         this.chat.appendChild(div)
         if (this.chat.childElementCount > 40) this.chat.removeChild(this.chat.children[0])
         this.chat.scrollTop = this.chat.scrollHeight

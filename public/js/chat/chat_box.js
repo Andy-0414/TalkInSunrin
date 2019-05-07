@@ -94,11 +94,6 @@ class ChatBox {
             this.input_mde.value("")
             }
         })
-        // this.input.addEventListener("keydown",e => {
-        //     if (e.keyCode == 13 && this.input.value) {
-        //         this.input.value = null
-        //     }
-        // })
     }
     setLeaveEvent(chatEvent){
         this.leave.addEventListener("click",e=>{
@@ -121,7 +116,7 @@ class ChatBox {
     writeMessage(name,msg) {
         var div = document.createElement("div")
         div.classList.add("chatBox__content__message")
-        div.innerHTML = (this.prevName != name ? `<hr><div class="chatBox__content__name">${name}</div>` : "") + marked(msg)
+        div.innerHTML = (this.prevName != name ? `<hr><div class="chatBox__content__name">[${name}]</div>` : "") + marked(msg)
         this.chat.appendChild(div)
         if (this.chat.childElementCount > 40) this.chat.removeChild(this.chat.children[0])
         this.chat.scrollTop = this.chat.scrollHeight

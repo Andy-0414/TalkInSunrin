@@ -2,14 +2,39 @@ const express = require('express')
 const app = express()
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-app.use(express.static('public'))
-app.get("/", (req, res) => {
-    res.sendfile("./public/index.html")
-})
-app.get("/chat_iframe", (req, res) => {
-    res.sendfile("./public/views/chat_iframe.html")
-})
 
+app.use(express.static('public'))
+app.use(express.urlencoded());
+app.use(express.json())
+
+var userData = {
+    userList: [],
+    findNameIdx(name) {
+        return this.userList.findIndex(x => x.name == name)
+    },
+    nameHas(name) {
+        return this.findNameIdx(name) != -1
+    },
+    findIdIdx(id) {
+        return this.userList.findIndex(x => x.id == id)
+    },
+    idHas(id) {
+        return this.findIdIdx(id) != -1
+    },
+    add(data) {
+        if (!this.nameHas(data.name))
+            this.userList.push(data)
+    },
+    delete(data) {
+        if (this.nameHas(data.name))
+            this.userList.splice(this.findNameIdx(data.name), 1)
+        if (this.idHas(data.id))
+            this.userList.splice(this.findIdIdx(data.id), 1)
+    },
+    getUserFromId(id){
+        return this.userList[this.findIdIdx(id)]
+    }
+}
 var chatList = [{
         _id: 0,
         name: "공개 1",
@@ -32,6 +57,25 @@ var chatList = [{
     }
 ]
 
+app.get("/", (req, res) => {
+    res.sendfile("./public/index.html")
+})
+app.get("/chat_iframe", (req, res) => {
+    res.sendfile("./public/views/chat_iframe.html")
+})
+app.post("/checkName", (req, res) => {
+    if (userData.nameHas(req.body.name)) {
+        res.send({
+            isAvailable: false
+        })
+    } else {
+        res.send({
+            isAvailable: true
+        })
+    }
+})
+
+
 function getChatList() {
     var arr = chatList.map(x => {
         return {
@@ -44,6 +88,12 @@ function getChatList() {
 }
 io.on('connection', (socket) => {
     socket.emit("sendChatList", getChatList())
+    socket.on("addUser", data => {
+        if (!userData.nameHas(data.name)) {
+            data.id = socket.id
+            userData.add(data)
+        }
+    })
     socket.on("leaveRoom", data => {
         var idx = chatList.findIndex(x => x._id == data._id)
         if (idx != -1) {
@@ -63,6 +113,11 @@ io.on('connection', (socket) => {
                 chatList[idx].users.add(socket.id)
                 socket.emit("joinRoomClear", chatList[idx])
                 io.sockets.emit("sendChatList", getChatList())
+                io.sockets.to(data._id).emit("sendToClientMessage", {
+                    _id: data._id,
+                    username: data.username,
+                    msg: `${data.username}님이 접속하였습니다.`
+                })
             }
         }
     })
@@ -74,6 +129,9 @@ io.on('connection', (socket) => {
         chatList.forEach(x => {
             if (x.users.has(socket.id))
                 x.users.delete(socket.id)
+        })
+        userData.delete({
+            id: socket.id
         })
         io.sockets.emit("sendChatList", getChatList())
     })

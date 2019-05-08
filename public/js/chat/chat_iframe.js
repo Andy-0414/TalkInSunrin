@@ -1,7 +1,3 @@
-var username = localStorage.getItem("TIS_username")
-if (!username) {
-    document.location.href = "/"
-}
 
 
 var socket = io()
@@ -20,6 +16,16 @@ window.addEventListener("resize", e => {
     })
 })
 
+var username = localStorage.getItem("TIS_username")
+if (username) {
+    socket.emit("addUser",{
+        name : username
+    })
+}
+else{
+    document.location.href = "/"
+}
+
 socket.on("sendChatList", data => {
     friendList.innerText = ""
     data.forEach(x => {
@@ -29,6 +35,7 @@ socket.on("sendChatList", data => {
             div.classList.add("friendList__list__item-active")
         div.innerText = `${x.name} [${x.users.length}]`
         div.addEventListener("click", e => {
+            x.username = username
             socket.emit("joinRoom", x)
         })
         friendList.appendChild(div)

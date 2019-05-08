@@ -1,5 +1,5 @@
 class ChatBox {
-    constructor(_id,prop) {
+    constructor(_id, prop) {
         this._id = _id
         if (prop)
             this.setProp(prop)
@@ -16,6 +16,7 @@ class ChatBox {
         this.friction = 1.15
         this.returnForce = 1
         this.prevName = ""
+        this.chatDelay = false;
     }
     getX() {
         return this.x
@@ -79,25 +80,29 @@ class ChatBox {
         this.input = this.prop.children[2].children[0]
         this.leave = this.prop.children[0].children[0]
         this.input_mde = new SimpleMDE({
-            element : this.input,
+            element: this.input,
             status: false,
             tabSize: 4,
             toolbar: false,
             toolbarTips: false,
-            lineWrapping : false
+            lineWrapping: false
         })
-        
+
     }
     setChatEvent(chatEvent) {
         this.input_mde.codemirror.on("keyHandled", (codeMirror, name, e) => {
-            if(e.key == "Enter"){
+            if (e.key == "Enter" && !this.chatDelay) {
                 chatEvent(this._id, this.input_mde.value())
-            this.input_mde.value("")
+                this.chatDelay = true
+                setTimeout(() => {
+                    this.chatDelay = false
+                }, 500)
             }
+            this.input_mde.value("")
         })
     }
-    setLeaveEvent(chatEvent){
-        this.leave.addEventListener("click",e=>{
+    setLeaveEvent(chatEvent) {
+        this.leave.addEventListener("click", e => {
             chatEvent(this._id)
             this.prop.parentElement.removeChild(this.prop)
             delete this
@@ -114,7 +119,7 @@ class ChatBox {
         this.prop.style.width = `${this.sizeX}px`
         this.prop.style.height = `${this.sizeY}px`
     }
-    writeMessage(name,msg) {
+    writeMessage(name, msg) {
         var div = document.createElement("div")
         div.classList.add("chatBox__content__message")
         div.innerHTML = (this.prevName != name ? `<hr><div class="chatBox__content__name">[${name}]</div>` : "") + marked(msg)

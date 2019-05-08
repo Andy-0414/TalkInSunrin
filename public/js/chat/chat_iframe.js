@@ -154,7 +154,7 @@ function endEvent() {
 
 var toggle = false
 document.addEventListener("keypress", e => {
-    if (e.ctrlKey && e.code == "KeyQ")
+    if (e.ctrlKey && e.code == "KeyB")
         toggle = !toggle
     if (toggle)
         chatListBox.style.display = "none"

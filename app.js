@@ -31,27 +31,42 @@ var userData = {
         if (this.idHas(data.id))
             this.userList.splice(this.findIdIdx(data.id), 1)
     },
-    getUserFromId(id){
+    getUserFromId(id) {
         return this.userList[this.findIdIdx(id)]
     }
 }
 var chatList = [{
         _id: 0,
-        name: "공개 1",
+        name: "2학년 4반",
         users: new Set()
     },
     {
         _id: 1,
-        name: "공개 2",
+        name: "2학년 5반",
         users: new Set()
     },
     {
         _id: 3,
-        name: "공개 3",
+        name: "2학년 6반",
         users: new Set()
     },
     {
         _id: 4,
+        name: "공개 1",
+        users: new Set()
+    },
+    {
+        _id: 5,
+        name: "공개 2",
+        users: new Set()
+    },
+    {
+        _id: 6,
+        name: "공개 3",
+        users: new Set()
+    },
+    {
+        _id: 7,
         name: "공개 4",
         users: new Set()
     }

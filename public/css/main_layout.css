@@ -22,7 +22,7 @@ body{
     width: 100vw;
     height: 100vh;
     background-color: #F2F2F2;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -34,11 +34,11 @@ body{
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #4DD862;
+    background: black;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #4DD862AA;
+    background: black;
 }
 
 .animation__delay-1{

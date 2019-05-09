@@ -91,14 +91,17 @@ class ChatBox {
     }
     setChatEvent(chatEvent) {
         this.input_mde.codemirror.on("keyHandled", (codeMirror, name, e) => {
-            if (e.key == "Enter" && !this.chatDelay) {
-                chatEvent(this._id, this.input_mde.value())
-                this.chatDelay = true
-                setTimeout(() => {
-                    this.chatDelay = false
-                }, 500)
+            if (e.key == "Enter") {
+                if (!this.chatDelay) {
+                    chatEvent(this._id, this.input_mde.value())
+
+                    this.chatDelay = true
+                    setTimeout(() => {
+                        this.chatDelay = false
+                    }, 500)
+                }
+                this.input_mde.value("")
             }
-            this.input_mde.value("")
         })
     }
     setLeaveEvent(chatEvent) {

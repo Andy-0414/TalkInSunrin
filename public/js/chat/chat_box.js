@@ -94,7 +94,6 @@ class ChatBox {
             if (e.key == "Enter") {
                 if (!this.chatDelay) {
                     chatEvent(this._id, this.input_mde.value())
-
                     this.chatDelay = true
                     setTimeout(() => {
                         this.chatDelay = false
@@ -122,10 +121,23 @@ class ChatBox {
         this.prop.style.width = `${this.sizeX}px`
         this.prop.style.height = `${this.sizeY}px`
     }
-    writeMessage(name, msg) {
+    writeMessage(name, msg, img) {
         var div = document.createElement("div")
         div.classList.add("chatBox__content__message")
-        div.innerHTML = (this.prevName != name ? `<hr><div class="chatBox__content__name">[${name}]</div>` : "") + marked(msg)
+        if (this.prevName != name) {
+            div.appendChild(document.createElement("hr"))
+            var chatBox__content__name = document.createElement("div")
+            chatBox__content__name.classList.add("chatBox__content__name")
+            var image = document.createElement('img')
+            image.classList.add("chatBox__content__img")
+            image.src = img
+            chatBox__content__name.appendChild(image)
+            chatBox__content__name.appendChild(document.createTextNode(name))
+            div.appendChild(chatBox__content__name)
+        }
+        var mark = document.createElement("p")
+        mark.innerHTML = marked(msg)
+        div.appendChild(mark)
         this.chat.appendChild(div)
         if (this.chat.childElementCount > 40) this.chat.removeChild(this.chat.children[0])
         this.chat.scrollTop = this.chat.scrollHeight

@@ -1,13 +1,14 @@
-
-
-var socket = io()
+var socket = io("http://58.145.101.15:3000/") // TODO
 var friendList = document.getElementsByClassName("friendList__list")[0]
 var chatListBox = document.getElementsByClassName("chatList")[0]
 
 var chatList = document.getElementsByClassName('chatBox')
 
 var myRoom = []
+var userData = null
 var animationScheduler = new AnimationScheduler()
+
+
 animationScheduler.start()
 
 window.addEventListener("resize", e => {
@@ -16,15 +17,13 @@ window.addEventListener("resize", e => {
     })
 })
 
-var username = localStorage.getItem("TIS_username")
-if (username) {
-    socket.emit("addUser",{
-        name : username
-    })
-}
-else{
-    document.location.href = "/"
-}
+axios.get('/auth/getUser').then(data => {
+    if (data.data) {
+        userData = data.data
+    } else {
+        document.location.href = "/"
+    }
+})
 
 socket.on("sendChatList", data => {
     friendList.innerText = ""
@@ -35,7 +34,8 @@ socket.on("sendChatList", data => {
             div.classList.add("friendList__list__item-active")
         div.innerText = `${x.name} [${x.users.length}]`
         div.addEventListener("click", e => {
-            x.username = username
+            x.username = userData.username
+            x.img = userData.photos[0].value
             socket.emit("joinRoom", x)
         })
         friendList.appendChild(div)
@@ -79,7 +79,8 @@ socket.on("joinRoomClear", data => {
         socket.emit("sendToServerMessage", {
             _id,
             msg,
-            username
+            username: userData.username,
+            img: userData.photos[0].value
         })
     })
     controllerDiv.setLeaveEvent(_id => {
@@ -103,7 +104,7 @@ socket.on("joinRoomClear", data => {
 socket.on("sendToClientMessage", data => {
     var idx = myRoom.findIndex(x => x._id == data._id)
     if (idx != -1) {
-        myRoom[idx].controller.writeMessage(data.username,data.msg)
+        myRoom[idx].controller.writeMessage(data.username, data.msg, data.img)
     }
 })
 

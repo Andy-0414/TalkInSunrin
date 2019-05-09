@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title>대화 in 선린</title>
 </head>
+
 <body>
     <div class="topMenu">
         <div class="topMenu__left">
@@ -25,8 +27,13 @@
 github 로그인
             </pre>
         </div>
-        <div class="main__login">Login width Github</div>
+        <div class="main__login">
+            <a class="main__login__button" href="/auth/github">Login width Github</a>
+            <a class="main__login__button main__login__button-disable">Login width Facebook</a>
+            <a class="main__login__button main__login__button-disable">Login width Google</a>
+        </div>
     </div>
     <script src="./js/index.js"></script>
 </body>
+
 </html>

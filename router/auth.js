@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const passportLoginAuth = require('../modules/passport-login.auth')()
+const passportLoginAuth = require('../modules/passport-login-auth')()
 router.get('/getUser', (req, res) => {
     if (req.user) {
         res.send(req.user)

@@ -24,12 +24,15 @@
 
     opacity: 0.7;
 }
-.chatBox:hover{
+
+.chatBox:hover {
     opacity: 0.9;
 }
-.chatBox:active{
+
+.chatBox:active {
     opacity: 1;
 }
+
 .chatBox__resize {
     position: absolute;
     top: calc(100% - 10px);
@@ -73,15 +76,27 @@
     flex: 8;
     overflow-y: scroll;
 }
-.chatBox__content__message{
+
+.chatBox__content__message {
     margin: 2px 0px;
 }
-hr{
+
+hr {
     margin: 10px 0px;
 }
-.chatBox__content__name{
+
+.chatBox__content__name {
+    display: flex;
+    align-items: center;
     font-size: 1.1em;
     font-weight: bold;
+}
+
+.chatBox__content__img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 5px;
 }
 
 .chatBox__input {
@@ -97,9 +112,10 @@ hr{
 
     border-top: 2px solid #1C79F2;
 }
+
 .CodeMirror,
 .CodeMirror-scroll {
-    min-height :0px !important;
+    min-height: 0px !important;
     height: 100%;
     padding: 0;
 }

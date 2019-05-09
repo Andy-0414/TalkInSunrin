@@ -1,95 +1,64 @@
 const express = require('express')
 const app = express()
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+const mongoose = require("mongoose");
+const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
+const passportLoginAuth = require('./modules/passport-login-auth')()
+
+mongoose.connect("mongodb://localhost/TalkInSunrin", {
+    useNewUrlParser: true
+});
 
 app.use(express.static('public'))
 app.use(express.urlencoded());
 app.use(express.json())
+app.use(session({
+    secret: "TMP", // TODO change
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 1 // 1 week
+    },
+    store: new MongoDBStore({
+        uri: 'mongodb://localhost/TalkInSunrin',
+        collection: 'User_session',
+    })
+}))
+app.use(passportLoginAuth.initialize())
+app.use(passportLoginAuth.session())
 
-var userData = {
-    userList: [],
-    findNameIdx(name) {
-        return this.userList.findIndex(x => x.name == name)
-    },
-    nameHas(name) {
-        return this.findNameIdx(name) != -1
-    },
-    findIdIdx(id) {
-        return this.userList.findIndex(x => x.id == id)
-    },
-    idHas(id) {
-        return this.findIdIdx(id) != -1
-    },
-    add(data) {
-        if (!this.nameHas(data.name))
-            this.userList.push(data)
-    },
-    delete(data) {
-        if (this.nameHas(data.name))
-            this.userList.splice(this.findNameIdx(data.name), 1)
-        if (this.idHas(data.id))
-            this.userList.splice(this.findIdIdx(data.id), 1)
-    },
-    getUserFromId(id) {
-        return this.userList[this.findIdIdx(id)]
-    }
-}
-var chatList = [{
-        _id: 0,
-        name: "2학년 4반",
-        users: new Set()
-    },
-    {
-        _id: 1,
-        name: "2학년 5반",
-        users: new Set()
-    },
-    {
-        _id: 3,
-        name: "2학년 6반",
-        users: new Set()
-    },
-    {
-        _id: 4,
-        name: "공개 1",
-        users: new Set()
-    },
-    {
-        _id: 5,
-        name: "공개 2",
-        users: new Set()
-    },
-    {
-        _id: 6,
-        name: "공개 3",
-        users: new Set()
-    },
-    {
-        _id: 7,
-        name: "공개 4",
-        users: new Set()
-    }
-]
+passportLoginAuth.getPassport().serializeUser((user, done) => { // 세션 생성
+    done(null, user)
+});
+passportLoginAuth.getPassport().deserializeUser((user, done) => { // 세션 확인
+    done(null, user)
+});
 
 app.get("/", (req, res) => {
     res.sendfile("./public/index.html")
 })
-app.get("/chat_iframe", (req, res) => {
+app.get("/hudchat", (req, res) => {
     res.sendfile("./public/views/chat_iframe.html")
 })
-app.post("/checkName", (req, res) => {
-    if (userData.nameHas(req.body.name)) {
-        res.send({
-            isAvailable: false
-        })
-    } else {
-        res.send({
-            isAvailable: true
-        })
-    }
-})
-
+app.use('/auth', require('./router/auth.js'))
+var chatList = [{
+    _id: 4,
+    name: "공개 1",
+    users: new Set()
+}, {
+    _id: 5,
+    name: "공개 2",
+    users: new Set()
+}, {
+    _id: 6,
+    name: "공개 3",
+    users: new Set()
+}, {
+    _id: 7,
+    name: "공개 4",
+    users: new Set()
+}]
 
 function getChatList() {
     var arr = chatList.map(x => {
@@ -103,12 +72,6 @@ function getChatList() {
 }
 io.on('connection', (socket) => {
     socket.emit("sendChatList", getChatList())
-    socket.on("addUser", data => {
-        if (!userData.nameHas(data.name)) {
-            data.id = socket.id
-            userData.add(data)
-        }
-    })
     socket.on("leaveRoom", data => {
         var idx = chatList.findIndex(x => x._id == data._id)
         if (idx != -1) {
@@ -131,7 +94,8 @@ io.on('connection', (socket) => {
                 io.sockets.to(data._id).emit("sendToClientMessage", {
                     _id: data._id,
                     username: data.username,
-                    msg: `${data.username}님이 접속하였습니다.`
+                    img: data.img,
+                    msg: `${data.username}님이 접속하였습니다.<hr>`
                 })
             }
         }
@@ -145,13 +109,10 @@ io.on('connection', (socket) => {
             if (x.users.has(socket.id))
                 x.users.delete(socket.id)
         })
-        userData.delete({
-            id: socket.id
-        })
         io.sockets.emit("sendChatList", getChatList())
     })
 })
 
-http.listen(80, () => {
+http.listen(3000, () => {
     console.log("server open");
 })

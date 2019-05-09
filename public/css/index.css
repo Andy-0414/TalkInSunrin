@@ -52,6 +52,7 @@
 }
 .main__content>pre{
     margin-top: 10px;
+    font-size: 1.1em;
 }
 .main__login{
     width: 400px;
@@ -70,7 +71,12 @@
     border-radius: 5px;
     text-align: center;
     text-decoration: none;
-    border: 1px solid #999999;    
+    border: 1px solid #999999;
+    transition: 0.2s;
+}
+.main__login__button:hover{
+    color: #010D14;
+    background: white;
 }
 .main__login__button-disable{
     background-color: rgba(100, 100, 100, 0.1);

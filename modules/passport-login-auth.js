@@ -6,7 +6,7 @@ module.exports = () => {
     passport.use(new GitHubStrategy({
             clientID: "c0960bc405f3f491062c",
             clientSecret: "7b23eb6d389fcc6f26985605f765a89e505bd722",
-            callbackURL: "http://58.145.101.15:3000/auth/github/callback"
+            callbackURL: "http://andy0414.sunrin.life/auth/github/callback"
         },
         (accessToken, refreshToken, profile, done) => {
             done(null, profile)

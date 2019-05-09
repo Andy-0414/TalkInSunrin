@@ -1,4 +1,4 @@
-var socket = io("http://58.145.101.15:3000/") // TODO
+var socket = io()
 var friendList = document.getElementsByClassName("friendList__list")[0]
 var chatListBox = document.getElementsByClassName("chatList")[0]
 

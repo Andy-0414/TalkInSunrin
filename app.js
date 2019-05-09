@@ -18,7 +18,7 @@ app.use(express.json())
 app.use(session({
     secret: "TMP", // TODO change
     cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 1 // 1 week
+        maxAge: 1000 * 60 * 60 * 24 * 1
     },
     store: new MongoDBStore({
         uri: 'mongodb://localhost/TalkInSunrin',
@@ -113,6 +113,6 @@ io.on('connection', (socket) => {
     })
 })
 
-http.listen(3000, () => {
+http.listen(80, () => {
     console.log("TalkInSunrin Server");
 })

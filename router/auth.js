@@ -5,7 +5,7 @@ router.get('/getUser', (req, res) => {
     if (req.user) {
         res.send(req.user)
     } else {
-        res.send("NOTUSER")
+        res.send(null)
     }
 })
 router.get('/github', passportLoginAuth.authenticate())

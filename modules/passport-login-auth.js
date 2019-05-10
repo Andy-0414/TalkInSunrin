@@ -12,13 +12,6 @@ module.exports = () => {
             done(null, profile)
         }
     ));
-    // passport.serializeUser((user, done) => { // 세션 생성
-    //     done(null,user)
-    // });
-
-    // passport.deserializeUser((user, done) => { // 세션 확인
-    //     done(null,user)
-    // });
     return {
         initialize() { // 기본
             return passport.initialize()

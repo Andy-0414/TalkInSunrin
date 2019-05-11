@@ -28,10 +28,10 @@ app.use(session({
 app.use(passportLoginAuth.initialize())
 app.use(passportLoginAuth.session())
 
-passportLoginAuth.getPassport().serializeUser((user, done) => { // 세션 생성
+passportLoginAuth.getPassport().serializeUser((user, done) => {
     done(null, user)
 });
-passportLoginAuth.getPassport().deserializeUser((user, done) => { // 세션 확인
+passportLoginAuth.getPassport().deserializeUser((user, done) => {
     done(null, user)
 });
 
@@ -42,20 +42,21 @@ app.get("/hudchat", (req, res) => {
     res.sendfile("./public/views/chat_iframe.html")
 })
 app.use('/auth', require('./router/auth.js'))
+
 var chatList = [{
-    _id: 4,
+    _id: 0,
     name: "공개 1",
     users: new Set()
 }, {
-    _id: 5,
+    _id: 1,
     name: "공개 2",
     users: new Set()
 }, {
-    _id: 6,
+    _id: 2,
     name: "공개 3",
     users: new Set()
 }, {
-    _id: 7,
+    _id: 3,
     name: "공개 4",
     users: new Set()
 }]

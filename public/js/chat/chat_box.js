@@ -139,7 +139,7 @@ class ChatBox {
         mark.innerHTML = marked(msg)
         div.appendChild(mark)
         this.chat.appendChild(div)
-        if (this.chat.childElementCount > 40) this.chat.removeChild(this.chat.children[0])
+        if (this.chat.childElementCount > 20) this.chat.removeChild(this.chat.children[0])
         this.chat.scrollTop = this.chat.scrollHeight
         this.prevName = name
     }

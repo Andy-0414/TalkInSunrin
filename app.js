@@ -41,6 +41,9 @@ app.get("/", (req, res) => {
 app.get("/hudchat", (req, res) => {
     res.sendfile("./public/views/chat_iframe.html")
 })
+app.get("/profile/:name", (req, res) => {
+    res.sendfile("./public/views/profile.html")
+})
 app.use('/auth', require('./router/auth.js'))
 
 var chatList = [{

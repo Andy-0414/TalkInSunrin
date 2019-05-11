@@ -1,0 +1,1 @@
+var username = window.location.pathname.split("/")[2]

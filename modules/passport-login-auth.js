@@ -15,7 +15,7 @@ module.exports = () => {
                 username : profile.username,
                 img: profile.photos[0].value
             }
-            done(null, profile)
+            done(null, user)
         }
     ));
 
@@ -30,7 +30,7 @@ module.exports = () => {
                 username: profile._json.nickname,
                 img: profile._json.profile_image
             }
-            done(null, profile)
+            done(null, user)
         }
     ));
     return {

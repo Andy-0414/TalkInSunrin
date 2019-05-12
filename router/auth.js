@@ -9,7 +9,7 @@ router.get('/getUser', (req, res) => {
     }
 })
 
-router.get('/nvaer', passportLoginAuth.authenticate("naver"))
+router.get('/naver', passportLoginAuth.authenticate("naver"))
 router.get('/naver/callback', passportLoginAuth.authenticate("naver"))
 router.get('/github', passportLoginAuth.authenticate("github"))
 router.get('/github/callback', passportLoginAuth.authenticate("github"))

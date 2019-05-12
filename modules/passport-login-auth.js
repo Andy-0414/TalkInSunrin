@@ -17,7 +17,7 @@ module.exports = () => {
     passport.use(new NaverStrategy({
         clientID: "02SUb7EpO5CQfjBYDvUr",
         clientSecret: "eDo58rC086",
-        callbackURL: "http://andy0414.sunrin.life/auth/github/callback"
+        callbackURL: "http://andy0414.sunrin.life/auth/naver/callback"
     },
         (accessToken, refreshToken, profile, done) => {
             console.log(profile)

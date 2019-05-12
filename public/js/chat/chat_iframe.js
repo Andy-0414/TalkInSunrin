@@ -35,7 +35,7 @@ socket.on("sendChatList", data => {
         div.innerText = `${x.name} [${x.users.length}]`
         div.addEventListener("click", e => {
             x.username = userData.username
-            x.img = userData.photos[0].value
+            x.img = userData.img
             socket.emit("joinRoom", x)
         })
         friendList.appendChild(div)
@@ -80,7 +80,7 @@ socket.on("joinRoomClear", data => {
             _id,
             msg,
             username: userData.username,
-            img: userData.photos[0].value
+            img: userData.img
         })
     })
     controllerDiv.setLeaveEvent(_id => {

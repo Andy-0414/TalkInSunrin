@@ -10,6 +10,11 @@ module.exports = () => {
         callbackURL: "http://andy0414.sunrin.life/auth/github/callback"
     },
         (accessToken, refreshToken, profile, done) => {
+            var user = {
+                loginType: "GITHUB",
+                username : profile.username,
+                img: profile.photos[0].value
+            }
             done(null, profile)
         }
     ));
@@ -20,7 +25,11 @@ module.exports = () => {
         callbackURL: "http://andy0414.sunrin.life/auth/naver/callback"
     },
         (accessToken, refreshToken, profile, done) => {
-            console.log(profile)
+            var user = {
+                loginType: "NAVER",
+                username: profile._json.nickname,
+                img: profile._json.profile_image
+            }
             done(null, profile)
         }
     ));

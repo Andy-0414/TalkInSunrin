@@ -47,7 +47,8 @@
 }
 .main__content{
     width: calc(70% - 400px);
-    height: 600px;
+    min-height: 400px;
+    height: auto;
 }
 .main__content>pre{
     margin-top: 10px;

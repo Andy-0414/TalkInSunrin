@@ -124,7 +124,7 @@ class ChatBox {
     writeMessage(name, msg, img) {
         var div = document.createElement("div")
         div.classList.add("chatBox__content__message")
-        if (this.prevName != name) {
+        if (this.prevName != name+img) {
             div.appendChild(document.createElement("hr"))
             var chatBox__content__name = document.createElement("div")
             chatBox__content__name.classList.add("chatBox__content__name")
@@ -141,6 +141,6 @@ class ChatBox {
         this.chat.appendChild(div)
         if (this.chat.childElementCount > 20) this.chat.removeChild(this.chat.children[0])
         this.chat.scrollTop = this.chat.scrollHeight
-        this.prevName = name
+        this.prevName = name+img
     }
 }

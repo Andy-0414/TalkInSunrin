@@ -98,3 +98,7 @@
         width: 80%
     }
 }
+.note{
+    overflow-y:scroll;
+    height: 400px;
+}

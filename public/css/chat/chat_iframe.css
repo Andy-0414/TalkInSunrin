@@ -97,7 +97,19 @@ body {
     color: rgba(255, 255, 255, 0.5);
     animation: borderAnimation 0.5s forwards;
 }
+.changeUrl{
+    position: fixed;
+    top: 0;
+    right: 0;
+    font-size: 1.2em;
+    padding: 10px;
+    margin: 5px;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
 
+    z-index: 100;
+}
 @keyframes borderAnimation {
     0% {}
 

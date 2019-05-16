@@ -1,1 +1,15 @@
-@import 'main_layout.css';
+@import '../main_layout.css';
+
+.user {
+    width: 100%;
+    height: auto;
+    padding: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    font-size: 2em;
+    background-color: #010D14;
+    color: white;
+}

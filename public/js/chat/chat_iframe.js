@@ -182,3 +182,9 @@ document.addEventListener("touchmove", (e) => {
 document.addEventListener("touchend", (e) => {
     endEvent()
 })
+
+var changeUrl = document.getElementById("changeUrl")
+var fake = document.getElementById("fake")
+changeUrl.addEventListener("change",e=>{
+    fake.src = changeUrl.value
+})

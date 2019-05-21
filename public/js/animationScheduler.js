@@ -1,6 +1,5 @@
 class AnimationScheduler {
     constructor() {
-        this.rate = 1000 / 60
         this.scheduler = null
         this.workList = []
         this.isAble = false
@@ -29,6 +28,6 @@ class AnimationScheduler {
                 clearInterval(this.scheduler)
                 this.scheduler = null
             }
-        }, this.rate)
+        }, 1000 / 60)
     }
 }

@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const mongoose = require("mongoose");
 const session = require("express-session");
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
@@ -8,10 +7,6 @@ const io = require("socket.io")(http);
 require("dotenv").config();
 
 const passportLoginAuth = require("./modules/passport-login-auth")();
-
-mongoose.connect("mongodb://localhost/TalkInSunrin", {
-	useNewUrlParser: true,
-});
 
 app.use(express.static("public"));
 app.use(express.urlencoded());

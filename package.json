@@ -1,25 +1,26 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "pm2 start pm2.json",
-    "stop": "pm2 stop pm2.json",
-    "close": "pm2 delete pm2.json"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "connect-mongodb-session": "^2.1.1",
-    "express": "^4.16.4",
-    "express-session": "^1.16.1",
-    "mongoose": "^5.5.6",
-    "passport": "^0.4.0",
-    "passport-github": "^1.1.0",
-    "passport-naver": "^1.0.6",
-    "pm2": "^3.5.0",
-    "socket.io": "^2.2.0"
-  }
+	"name": "server",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"heroku-prebuild": "npm install pm2 -g",
+		"start": "pm2-runtime start pm2.json --env production",
+		"stop": "pm2 stop pm2.json",
+		"close": "pm2 delete pm2.json"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"dotenv": "^8.2.0",
+		"express": "^4.16.4",
+		"express-session": "^1.16.1",
+		"mongoose": "^5.5.6",
+		"passport": "^0.4.0",
+		"passport-github": "^1.1.0",
+		"passport-naver": "^1.0.6",
+		"pm2": "^4.4.0",
+		"socket.io": "^2.2.0"
+	}
 }

@@ -21,23 +21,6 @@ module.exports = () => {
 		)
 	);
 
-	// passport.use(
-	// 	new NaverStrategy(
-	// 		{
-	// 			clientID: "02SUb7EpO5CQfjBYDvUr",
-	// 			clientSecret: "eDo58rC086",
-	// 			callbackURL: "https://talk-in-sunrin.herokuapp.com/auth/naver/callback",
-	// 		},
-	// 		(accessToken, refreshToken, profile, done) => {
-	// 			var user = {
-	// 				loginType: "NAVER",
-	// 				username: profile._json.nickname,
-	// 				img: profile._json.profile_image,
-	// 			};
-	// 			done(null, user);
-	// 		}
-	// 	)
-	// );
 	return {
 		initialize() {
 			// 기본
